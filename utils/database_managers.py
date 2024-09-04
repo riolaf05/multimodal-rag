@@ -1,10 +1,12 @@
-# DynamoDB
-# import boto3
 import os
+# import boto3
 from langchain.docstore.document import Document
+from llama_index.vector_stores.qdrant import QdrantVectorStore
+from llama_index.core import VectorStoreIndex, StorageContext
 
 AWS_ACCESS_KEY_ID=os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY=os.getenv("AWS_SECRET_ACCESS_KEY")
+VECTOR_SIZE=768
 
 # class DynamoDBManager:
 #     def __init__(self, region, table_name):
@@ -214,3 +216,21 @@ class QDrantDBManager:
             cleanup=cleanup,
             source_id_key="source"
         )
+
+    def index_llamaindex_documents(self, client, collection, docs):
+        image_vector_store = QdrantVectorStore(
+            client=client, 
+            collection_name=collection,
+            dimensions=VECTOR_SIZE,
+            # embed_model,
+        )
+
+        # define storage context
+        storage_context = StorageContext.from_defaults(vector_store=image_vector_store)
+
+        # define image index
+        image_index = VectorStoreIndex.from_documents(
+            docs,
+            storage_context=storage_context
+        )
+        

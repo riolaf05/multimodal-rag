@@ -41,14 +41,6 @@ requests==2.31.0
 # pydub
 # librosa
 
-# torch==2.1
-# transformers==4.34.1
-# accelerate==0.26.1
-# bitsandbytes==0.41.1
-
-# torchvision 
-# torchaudio
-
 # llava-torch==1.1.1
 qdrant-client==1.8.0
 # git+https://github.com/openai/whisper.git
@@ -59,10 +51,12 @@ groq
 langchain-groq
 # langgraph
 fastembed
-langchain-community 
-langchainhub
+# langchain-community 
+# langchainhub
 tavily-python
 ollama
 transformers
 torch
-telepot
+
+git+https://github.com/openai/CLIP.git
+llama-index==0.10.58
